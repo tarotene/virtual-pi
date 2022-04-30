@@ -5,7 +5,6 @@ Mock Library for RPi.GPIO
 import time
 import logging
 import os
-import yaml
 
 logger = logging.getLogger(__name__)
 
@@ -99,7 +98,7 @@ def setwarnings(flag):
     """
     Enable or disable warning messages
     """
-    logger.info("Set Warings as {}".format(flag))
+    logger.info("Set Warnings as {}".format(flag))
 
 
 def setup(channel, direction, initial=0, pull_up_down=PUD_OFF):
@@ -111,7 +110,7 @@ def setup(channel, direction, initial=0, pull_up_down=PUD_OFF):
     [initial]      - Initial value for an output channel
 
     """
-    logger.info("setup channel : {} as {} with intial :{} and pull_up_dowm {}".format(
+    logger.info("setup channel : {} as {} with initial :{} and pull_up_down {}".format(
         channel, direction, initial, pull_up_down))
     global channel_config
     channel_config[channel] = Channel(
@@ -156,7 +155,7 @@ def add_event_detect(channel, edge, callback, bouncetime):
     [callback]   - A callback function for the event (optional)
     [bouncetime] - Switch bounce timeout in ms for callback
     """
-    logger.info("Event detect added for edge : {} on channel : {} with bouce time : {} and callback {}".format(
+    logger.info("Event detect added for edge : {} on channel : {} with bounce time : {} and callback {}".format(
         edge, channel, bouncetime, callback))
 
 
@@ -247,7 +246,7 @@ class PWM:
 
 def cleanup(channel=None):
     """
-    Clean up by resetting all GPIO channels that have been used by this program to INPUT with no pullup/pulldown and no event detection
+    Clean up by resetting all GPIO channels that have been used by this program to INPUT with no pull-up/pull-down and no event detection
     [channel] - individual channel or list/tuple of channels to clean up.  Default - clean every channel that has been used.
     """
     if channel is not None:
