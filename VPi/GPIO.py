@@ -60,10 +60,10 @@ setModeDone = False
 
 
 class Channel:
-    def __init__(self, channel, direction, initial=0, pull_up_down=PUD_OFF):
+    def __init__(self, channel, direction, value=0, pull_up_down=PUD_OFF):
         self.chanel = channel
         self.direction = direction
-        self.initial = initial
+        self.value = value
         self.pull_up_down = pull_up_down
 
 
@@ -74,14 +74,14 @@ def setmode(mode):
     BOARD - Use Raspberry Pi board numbers
     BCM   - Use Broadcom GPIO 00..nn numbers
     """
+    global setModeDone
+    global _mode
     # GPIO = GPIO()
     time.sleep(1)
-    if(mode == BCM):
+    if(mode == BCM or mode == BOARD):
         setModeDone = True
         _mode = mode
-
-    elif (mode == BOARD):
-        setModeDone = True
+        logger.info("Set numbering mode as {}".format(_mode))
     else:
         setModeDone = False
 
@@ -112,7 +112,6 @@ def setup(channel, direction, initial=0, pull_up_down=PUD_OFF):
     """
     logger.info("setup channel : {} as {} with initial :{} and pull_up_down {}".format(
         channel, direction, initial, pull_up_down))
-    global channel_config
     channel_config[channel] = Channel(
         channel, direction, initial, pull_up_down)
 
@@ -124,7 +123,9 @@ def output(channel, value):
     value   - 0/1 or False/True or LOW/HIGH
 
     """
+    global channel_config
     logger.info("output channel : {} with value : {}".format(channel, value))
+    channel_config[channel].value = value
 
 
 def input(channel):
@@ -133,6 +134,7 @@ def input(channel):
     channel - either board pin number or BCM number depending on which mode is set.
     """
     logger.info("reading from chanel {}".format(channel))
+    return channel_config[channel].value
 
 
 def wait_for_edge(channel, edge, bouncetime, timeout):
@@ -192,6 +194,7 @@ def gpio_function(channel):
     """
     logger.info("GPIO function of Channel : {} is {}".format(
         channel, channel_config[channel].direction))
+    return channel_config[channel].direction
 
 
 class PWM:
