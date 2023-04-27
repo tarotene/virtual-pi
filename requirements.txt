@@ -31,7 +31,7 @@ six==1.15.0
 tqdm==4.55.1
 twine==3.3.0
 typing-extensions==3.7.4.3
-urllib3==1.26.2
+urllib3==1.26.5
 VPi @ file:///home/aananth/workspace/github/virtual-pi
 webencodings==0.5.1
 zipp==3.4.0
