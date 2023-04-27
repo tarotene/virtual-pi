@@ -47,7 +47,7 @@ setup(
       author_email='aananthraj1995@gmail.com',
       license='GPL-3.0',
       packages=find_packages(exclude=[]),
-      install_requires=["numpy==1.19.5"],
+      install_requires=["numpy==1.22.0"],
       zip_safe=False,
       long_description_content_type="text/markdown",
       long_description=long_description,
